@@ -1,0 +1,79 @@
+.main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100%;
+    flex-direction: column;
+}
+.main h3{
+    font-family: 'Open Sans',sans-serif;
+    font-size: 28px;
+    color: #cf4e0f;
+}
+.main form{
+    display: flex;
+    flex-direction: column;
+}
+.main input{
+    margin-bottom: 15px;
+    border-radius: 20px;
+    border: 1px solid #cccc;
+    text-align: center;
+    padding: 5px 15px;
+    font-size: 18px;
+}
+.main button{
+    background: #45b85d;
+    border: 1px solid #45b85d;
+    border-radius: 20px;
+    padding: 5px 10px;
+    width: 70%;
+    margin: auto;
+    color: #fff;
+    cursor: pointer;
+    transition: .2s all;
+    font-size: 16px;
+}
+.main button:hover{
+    background: #fff !important;
+    color: #45b85d !important;
+}
+.card-image {
+    max-width: 200px;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 0 #ccc;
+    margin: 15px;
+}
+
+
+.image-to-edit {
+    max-width: 100%;
+}
+.images-box{
+    display: flex;
+    flex-wrap: wrap;
+}
+.card-image p{
+    text-align: center;
+    color: #cf4e0f;
+    font-size: 20px;
+    font-family: 'Open Sans',sans-serif;
+    font-weight: bold;
+}
+.card-image button{
+    background: transparent;
+    border: 2px solid #cad101;
+    color: #cad101;
+    font-size: 15px;
+    padding: 5px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: .2s all; 
+}
+.card-image button:hover{
+    background: #cad101 !important;
+    color: #fff !important;
+}
