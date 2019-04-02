@@ -28,10 +28,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <script src="editImage.js"></script>
+    <link rel="stylesheet" href="style.css">
 
 
 </head>
-<body>
+<body class="editImage">
     <?php 
         $imagem = getOneImage($image_id);
         $campos = getCampos($image_id);
@@ -40,29 +41,36 @@
         
     ?>
     
-    
+    <canvas id="canvasFinal" ></canvas>
+        
+    <!-- DIV onde serão carregados os campos -->
+    <div id="campos">
+            
+    </div>
 
+    <!-- Botão finalizar -->    
+    <button onclick="finalizar();" id="btn-download" >Finalizar edição</button>
 
-    <canvas onclick="buildImage(event);" id="canvasss"></canvas>
-
-    <?php 
+    <!-- <?php 
         
         $n = mysql_num_rows($campos);
         for($i = 0; $i < $n; $i++){
             echo '<label> '.mysql_result($campos, $i, 2).' </label>';
             echo '<input onBlur="changeValue(this);" type="text" name="'.mysql_result($campos, $i, 2).'" ';
         }
-    ?>
+    ?> -->
 
 
 </body>
 <script type="text/javascript">
+    var user = "<?php echo $_SESSION['usuario'] ?>";
     var dadosImage = [];
-    var listDados = [];
+    var listCampos = [];
     this.dadosImage.push({
         'image': "<?php echo mysql_result($imagem, 0, 1) ?>",
         'alt': <?php echo mysql_result($imagem, 0, 2) ?>,
         'larg': <?php echo mysql_result($imagem, 0, 3) ?>,
+        'nome': "<?php echo mysql_result($imagem, 0, 4) ?>",
     });
 
     <?php 
@@ -70,12 +78,12 @@
         $n = mysql_num_rows($campos);
         for($i = 0; $i < $n; $i++){
             echo "
-            this.listDados.push({
+            this.listCampos.push({
                 'nome': '".mysql_result($campos, $i, 2)."',
                 'cordX': ".mysql_result($campos, $i, 3).",
                 'cordY': ".mysql_result($campos, $i, 4).",
-                'fontName': ".mysql_result($campos, $i, 5).",
-                'fontSize': '".mysql_result($campos, $i, 6)."',
+                'fontName': '".mysql_result($campos, $i, 6)."',
+                'fontSize': ".mysql_result($campos, $i, 5).",
                 'fontColor': '".mysql_result($campos, $i, 7)."',
             });
             ";
@@ -85,8 +93,7 @@
     
 
 
-    console.log(dadosImage);
-    console.log(listDados);
+    getDados(listCampos, dadosImage);
 
     //getDados(campos, imagem);  
 </script>

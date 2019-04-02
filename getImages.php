@@ -16,4 +16,13 @@
       $result = mysql_query('SELECT * FROM `imagem` WHERE id = "'.$id.'"');
       return $result;
     }
+    function exibe_imagens_para_aprovacao(){
+      $result = mysql_query('SELECT * FROM `imagemta` WHERE aprovada = 0');
+      return $result;
+    }
+    function exibe_imagens_para_download($user){
+      $result = mysql_query('SELECT * FROM `imagemta` WHERE aprovada = 1 and user = "'.$user.'" ');
+      return $result;
+    }
+    
 ?>

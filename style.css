@@ -77,3 +77,54 @@
     background: #cad101 !important;
     color: #fff !important;
 }
+
+.editImage input{
+    margin-bottom: 15px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+    padding: 5px 15px;
+    font-size: 18px;
+}
+
+.editImage label{
+    text-align: center;
+    color: #cf4e0f;
+    font-size: 20px;
+    font-family: 'Open Sans',sans-serif;
+    font-weight: bold;
+}
+
+.editImage button{
+    background: #45b85d;
+    border: 1px solid #45b85d;
+    border-radius: 20px;
+    padding: 5px 10px;
+    width: 70%;
+    margin: auto;
+    color: #fff;
+    cursor: pointer;
+    transition: .2s all;
+    font-size: 16px;
+}
+.editImage button:hover{
+    background: #fff !important;
+    color: #45b85d !important;
+}
+.images-box a{
+    text-decoration: none;
+}
+.circle-plus{
+    height: 160px;
+    width: 160px;
+    background: #ccc;
+    margin: auto;
+    position: relative;
+    border-radius: 50%;
+}
+.soma-icon{
+    font-size: 83px;
+    color: #494949;
+    margin-left: 28%;
+    margin-top: 26%;
+}

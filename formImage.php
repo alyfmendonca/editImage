@@ -37,9 +37,11 @@
                 <input type="file" id="file" onchange="preview();" required />
                 <img width="400px" height="400px" id="imgPreview" src="#" hidden/>
                 <br/>
+                <label>Nome da Imagem:<input required type="text" id="nomImg" onblur="imgOnBlur();"/></label>
+                <span></span>
                 <span>Dimensões</span>
-                <label>Largura:<input required type="number" id="dimLarg" onblur="dimensLarg();"></label>
-                <label>Altura:<input required type="number" id="dimAlt" onblur="dimensAlt();"></label>
+                <label>Largura:<input required type="number" id="dimLarg" onblur="dimensLarg();"/></label>
+                <label>Altura:<input required type="number" id="dimAlt" onblur="dimensAlt();"/></label>
                 <button class="btn btn-primary">Customizar imagem</button>
             </form>
     </div>

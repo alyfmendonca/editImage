@@ -28,6 +28,9 @@
     <title>Edição de fotos</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" id="gfont-css" href="//fonts.googleapis.com/css?family=Open+Sans%3A300%2C400%2C600%2C700%2C800&amp;ver=5.0.3" type="text/css" media="all">
     <script src="main.js"></script>
 </head>
@@ -37,7 +40,7 @@
         if($_SESSION['admin'] == "1"){
             echo '<a href="formImage.php" >';
             echo '<div class="card-image">';
-            echo '<img class="image-to-edit" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAMFBMVEX///8AAABhYWFlZWX8/PzNzc2KioqRkZHBwcHGxsYkJCRqamqNjY20tLRTU1OIiIgtkQnaAAACKElEQVR4nO3dwU7CUBBAUUtLW2yF//9b48KkwBA372W8wz1rjXPzqBQW048PSaplncfrOK/ZY/Qy3YZftyl7mB7Ow9E5e5z2voZ7X9kDtXYeHhU7xekpcBhqXYt7ULhnD9VUEDgM2UO1dAkLL9ljNbSEhUv2WA1tYeGWPVZDp7DwlD1WQxbyWchnIZ+FfBbyWchnIZ+FfBbyWchnIZ+FfBbyWchnIZ+FfBbyWchnIZ+FfBbyWchnIZ+FfBbyWchnIZ+FfBbyWchnIZ+FfBbyWchnIZ+FfBbyWchnIZ+FfBby1S8cw8IxYZLLsp06GD/Dws+xxx/blpd74KY5nINoDncyPm+nJAs2az7uF6V72o9a6wR/PJxitF+U7v5avP39Czi3u8Lsabo4Bq7Zw3Rx3Bte553waD4UxndVdMe7wmv2MF1c3+oM61+H9f+X1n8/LPkyne8K69+X1v9s8QafD6udYvj0jCl6RAPT/vLZGcW/a+vo/3xf2kv977wt5LOQz0I+C/ks5LOQz0I+C/ks5LOQz0I+C/ks5LOQz0I+C/ks5LOQz0I+C/ks5LOQz0I+C/ks5LOQz0I+C/ks5LOQz0I+C/ks5LOQz0I+C/ks5LOQz0I+C/ks5KtfuIWFW/ZYDS1h4ZI9VkOXsDBjr1o3YWH2UE1FCwv37KGaivajvtxtyPS8WTPcTkn2uB812C9Kd659gj8Oz7GJnwNTwbqP13Ff//5BSUL5BiGCKXb9HFKDAAAAAElFTkSuQmCC" />';
+            echo '<div class="circle-plus"> <i class="fas fa-plus soma-icon""></i></div>';
             echo '<p>Adicionar imagem</p>';
             echo '</div>';
             echo '</a>';
@@ -48,15 +51,83 @@
         for($i = 0; $i < $n; $i++){
             echo '<div class="card-image">';
             echo '<img class="image-to-edit" src="'.mysql_result($imagens, $i, 1).'" />';
-            echo '<p>Nome da imagem</p>';
+            echo '<p>'.mysql_result($imagens, $i, 4).'</p>';
             echo '<form action="editImage.php" method="post" >';
             echo '<input type="hidden" name="image_id" value="'.mysql_result($imagens, $i, 0).'" >';
             echo '<button type="submit">Editar</button>';
             echo '</form>';
             echo '</div>';
         }
-        
+
     ?>
     </div>
+
+    
+    
+        <?php
+            if($_SESSION['admin'] == "1"){
+                echo '<h2> Imagens para aprovação </h2>';
+                echo '<div class="images-box">';
+                $imagensta = exibe_imagens_para_aprovacao();
+                $n = mysql_num_rows($imagensta);
+                for($i = 0; $i < $n; $i++){
+                    echo '<div class="card-image">';
+                    echo '<img class="image-to-edit" src="'.mysql_result($imagensta, $i, 1).'" />';
+                    echo '<p>'.mysql_result($imagensta, $i, 6).'</p>';
+                    echo '<p> User: '.mysql_result($imagensta, $i, 5).'</p>';
+                    echo '<button type="submit" onclick="aprovar('.mysql_result($imagensta, $i, 0).');">Aprovar</button>';
+                    echo '</div>';
+                }
+                echo '</div>';
+            }else {
+                echo '<h2> Imagens para Download </h2>';
+                echo '<div class="images-box">';
+                $imagensta = exibe_imagens_para_download($logado);
+                if(!$imagensta){
+
+                }else {
+                    
+                    $n = mysql_num_rows($imagensta);
+                    for($i = 0; $i < $n; $i++){
+                        echo '<div class="card-image">';
+                        echo '<img class="image-to-edit" src="'.mysql_result($imagensta, $i, 1).'" />';
+                        echo '<p>'.mysql_result($imagensta, $i, 6).'</p>';
+                        echo '<input type="hidden" name="image_id" value="'.mysql_result($imagensta, $i, 0).'" >';
+                        echo '<button type="submit" onclick="downloadCanvas();">Download</button>';
+                        echo '<a id="download" style="display: none"  download="'.mysql_result($imagensta, $i, 6).'.png" href="'.mysql_result($imagensta, $i, 1).'"></a>';
+                        echo '</div>';
+                    }
+                    echo '</div>';
+                }
+                
+            }
+            
+        ?>
 </body>
+<script>
+    function aprovar(id){
+
+        $.post("teste.php", { dados: id, photo: 'a', operacao: 'U'  }).done(function(data) {
+            if(data){
+                //alert(data);
+                window.location.replace("firstPage.php");
+            } else {
+                alert('Ocorreu um erro');
+            }
+            
+            //window.location.replace("teste.php");
+        }).fail(function() {
+            alert("error");
+        });
+    }
+    //Baixar o canvas
+    function downloadCanvas() {
+        //Salva
+        var link = document.getElementById("download");
+        link.click();
+
+
+
+    }
+</script>
 </html> 

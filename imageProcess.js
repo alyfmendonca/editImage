@@ -5,6 +5,7 @@ var fontColor = "Black";
 var textVal;
 var dimLarg = localStorage.getItem("dimLarg");
 var dimAlt = localStorage.getItem("dimAlt");
+var nomImg = localStorage.getItem("nomImg");
 
 //Lista de salvos
 var listSalvos = [];
@@ -249,16 +250,17 @@ function finalizar() {
     this.dadosImage.push({
         'image': compactImg,
         'alt': dimAlt,
-        'larg': dimLarg
+        'larg': dimLarg,
+        'nome': nomImg
     });
 
     var wi = this.listSalvos;
-    $.post("teste.php", { dados: wi, photo: this.dadosImage  }).done(function(data) {
+    $.post("teste.php", { dados: wi, photo: this.dadosImage, operacao: 'N'  }).done(function(data) {
         if(data){
-            alert(data);
-            //window.location.replace("pos.php");
+            //alert(data);
+            window.location.replace("firstPage.php");
         } else {
-            alert('olha la');
+            alert('Ocorreu um erro');
         }
         
         //window.location.replace("teste.php");

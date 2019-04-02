@@ -23,8 +23,12 @@ function preview() {
     if (localStorage.getItem("dimAlt")) {
         localStorage.removeItem("dimAlt")
     }
+    if (localStorage.getItem("nomImg")) {
+        localStorage.removeItem("nomImg")
+    }
     document.getElementById('dimLarg').value = "";
     document.getElementById('dimAlt').value = "";
+    document.getElementById('nomImg').value = "";
     readURL();
 }
 
@@ -46,5 +50,15 @@ function dimensAlt() {
     let dimAlt = document.getElementById('dimAlt').value;
 
     localStorage.setItem("dimAlt", dimAlt);
+
+}
+function imgOnBlur() {
+    if (localStorage.getItem("nomImg")) {
+        localStorage.removeItem("nomImg")
+    }
+
+    let nomeImagem = document.getElementById('nomImg').value;
+
+    localStorage.setItem("nomImg", nomeImagem);
 
 }
