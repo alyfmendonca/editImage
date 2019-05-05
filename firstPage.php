@@ -4,7 +4,27 @@
     include 'getImages.php';
 ?>
 <head>
-
+<style>
+.logout-button{
+    background: #45b85d;
+    border: 1px solid #45b85d;
+    border-radius: 20px;
+    padding: 5px 10px;
+    width: 100px;
+    margin: auto;
+    color: #fff;
+    cursor: pointer;
+    transition: .2s all;
+    font-size: 16px;
+    position: absolute;
+    right: 55px;
+    top: 33px;
+}
+.logout-button:hover{
+    background: #fff !important;
+    color: #45b85d !important;
+}
+</style>
 <?php 
     /* esse bloco de código em php verifica se existe a sessão, pois o usuário pode
     simplesmente não fazer o login e digitar na barra de endereço do seu navegador 
@@ -61,7 +81,7 @@
 
     ?>
     </div>
-
+    <button class="logout-button" type="submit" onclick="logout()">Sair</button>
     
     
         <?php
@@ -93,8 +113,8 @@
                         echo '<img class="image-to-edit" src="'.mysql_result($imagensta, $i, 1).'" />';
                         echo '<p>'.mysql_result($imagensta, $i, 6).'</p>';
                         echo '<input type="hidden" name="image_id" value="'.mysql_result($imagensta, $i, 0).'" >';
-                        echo '<button type="submit" onclick="downloadCanvas();">Download</button>';
-                        echo '<a id="download" style="display: none"  download="'.mysql_result($imagensta, $i, 6).'.png" href="'.mysql_result($imagensta, $i, 1).'"></a>';
+                        echo '<button type="submit" onclick="downloadCanvas('.mysql_result($imagensta, $i, 0).');">Download</button>';
+                        echo '<a id="download-'.mysql_result($imagensta, $i, 0).'" style="display: none"  download="'.mysql_result($imagensta, $i, 6).'.png" href="'.mysql_result($imagensta, $i, 1).'"></a>';
                         echo '</div>';
                     }
                     echo '</div>';
@@ -103,6 +123,8 @@
             }
             
         ?>
+
+        
 </body>
 <script>
     function aprovar(id){
@@ -121,13 +143,20 @@
         });
     }
     //Baixar o canvas
-    function downloadCanvas() {
+    function downloadCanvas(id) {
         //Salva
-        var link = document.getElementById("download");
+        var link = document.getElementById(`download-${id}`);
         link.click();
 
 
 
+    }
+    function logout(){
+        $.post("logout.php", {}).done(function(data) {
+            window.location.replace("firstPage.php");
+        }).fail(function() {
+            alert("error");
+        });
     }
 </script>
 </html> 
