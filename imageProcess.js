@@ -1,6 +1,7 @@
 //Variáveis de customização (Padrão Arial, 12)
 var fontSize = 12;
 var fontName = "Arial";
+var fontUrl = "";
 var fontColor = "Black";
 var textVal;
 var dimLarg = localStorage.getItem("dimLarg");
@@ -157,7 +158,8 @@ function salvarModal() {
         'resAlt': this.dimAlt,
         'fontName': this.fontName,
         'fontSize': this.fontSize,
-        'fontColor': this.fontColor
+        'fontColor': this.fontColor,
+        'fontUrl': this.fontUrl
     });
 
     $('#myModal').modal('hide');
@@ -189,6 +191,7 @@ function setSize(event) {
 
 function setFont(event) {
     this.fontName = event.target.value;
+    this.fontUrl = "";
 }
 
 function limpaPai() {
@@ -242,7 +245,8 @@ function setColor(event) {
 }
 function finalizar() {
     //alert('Customização Finalizada');
-    console.log(this.listSalvos);
+    
+    console.log(this.listSalvos)
 
     //Compacta imagem
     var compactImg = localStorage.getItem("formImage");
@@ -301,6 +305,7 @@ function fontFileChange(event) {
     selectedFont.load().then(function (loaded_face) {
         document.fonts.add(loaded_face);
         this.fontName = event.target[event.target.selectedIndex].text;
+        this.fontUrl = event.target.value;
     })
 }
 

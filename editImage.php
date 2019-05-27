@@ -85,8 +85,10 @@
                 'fontName': '".mysql_result($campos, $i, 6)."',
                 'fontSize': ".mysql_result($campos, $i, 5).",
                 'fontColor': '".mysql_result($campos, $i, 7)."',
+                'fontUrl': '".mysql_result($campos, $i, 8)."'
             });
-            ";
+            renderFonte('".mysql_result($campos, $i, 6)."', '".mysql_result($campos, $i, 8)."');
+           ";
         }
     ?>
 

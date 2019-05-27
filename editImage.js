@@ -36,6 +36,7 @@ window.onload = () => {
     //Desenha cada campo
     listCampos.forEach(campo => {
 
+
         //Pega as informações
         let fontSize = campo['fontSize'];
         let fontName = campo['fontName'];
@@ -189,4 +190,14 @@ function finalizar(){
     }).fail(function() {
         alert("error");
     });
+}
+
+function renderFonte(fontName, fontUrl){
+    if(fontUrl != ""){
+        var selectedFont = new FontFace(fontName, `url(${fontUrl})`);
+            selectedFont.load().then(function (loaded_face) {
+                document.fonts.add(loaded_face);
+                console.log(`Fonte: ${fontName} adicionada pela URL ${fontUrl}`);
+            })
+    }
 }

@@ -30,7 +30,7 @@
   function grava_campos($id, $dados){
 
     foreach ($dados as $item) {
-      $result = mysql_query('INSERT INTO campos (id_image, nome, cord_x, cord_y, font_size, font_name, font_color) VALUES ('.$id.' , "'.$item["nome"].'", '.$item["cordX"].', '.$item["cordY"].', '.$item["fontSize"].', "'.$item["fontName"].'", "'.$item["fontColor"].'")') or die(mysql_error());
+      $result = mysql_query('INSERT INTO campos (id_image, nome, cord_x, cord_y, font_size, font_name, font_color, font_url) VALUES ('.$id.' , "'.$item["nome"].'", '.$item["cordX"].', '.$item["cordY"].', '.$item["fontSize"].', "'.$item["fontName"].'", "'.$item["fontColor"].'", "'.$item["fontUrl"].'")') or die(mysql_error());
     }
     return true;
 
